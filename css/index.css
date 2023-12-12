@@ -1,0 +1,58 @@
+/* This is the main CSS file used in files
+- index.html
+- login.html
+It overrides some bootstrap classes and provides uniform style to all the html pages */
+
+#cardImage {
+  height: 20rem;
+}
+
+#cardTitle {
+  width: 15rem;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.tab-content > .active {
+  display: flex;
+}
+
+.nav-link {
+  display: inline;
+  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+  font-size: var(--bs-nav-link-font-size);
+  font-weight: var(--bs-nav-link-font-weight);
+  color: var(--bs-nav-link-color);
+  text-decoration: none;
+  background: 0 0;
+  border: 0;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  border-radius: 10px;
+}
+
+.nav-link:hover {
+  background: #c2bfbf;
+}
+
+.nav-pills {
+  --bs-nav-pills-border-radius: var(--bs-border-radius);
+  --bs-nav-pills-link-active-color: #ffffff;
+  --bs-nav-pills-link-active-bg: #808080;
+}
+
+#cartListBadge,
+#wishListBadge {
+  margin-left: -15%;
+}
+
+:focus-visible {
+  outline: -webkit-focus-ring-color auto 1px;
+  outline-color: none;
+  outline-style: none;
+  outline-width: none;
+}

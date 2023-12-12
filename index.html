@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop Kart</title>
+    <!-- Bootstrap CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <!-- Bootstrap Icons CDN  -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <link href="./css/index.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Navbar Top Fixed -->
+    <nav class="navbar navbar-expand-lg bg-secondary-subtle fixed-top">
+      <div class="container-fluid nav-pills" role="tablist">
+        <!-- Title -->
+        <div class="col-auto">
+          <a
+            class="navbar-brand fw-bold nav-link active rounded-pill p-2 d-flex"
+            data-bs-toggle="pill"
+            data-bs-target="#homePage"
+            type="button"
+            role="tab"
+            aria-controls="homePage"
+            aria-selected="true"
+            onclick="handleMainPage()"
+            ><i class="bi bi-basket-fill"></i>
+            <div class="d-none d-md-block ms-md-2">Shop Kart</div></a
+          >
+        </div>
+        <!-- Search Bar -->
+        <div
+          class="col-auto ms-0 me-0 rounded-pill d-none d-lg-block me-auto col-lg"
+          style="width: 60vw"
+        >
+          <div class="d-flex bg-light-subtle rounded-pill pt-1 pb-1">
+            <div class="ms-2 me-2"><i class="bi bi-search"></i></div>
+            <input
+              type="search"
+              placeholder="Search"
+              class="w-100 rounded-pill border-0 bg-light-subtle me-2"
+              list="searchSuggestions"
+              id="searchBar"
+              oninput="updateDataListSearch()"
+            />
+            <datalist id="searchSuggestions"></datalist>
+          </div>
+        </div>
+        <!-- Cart Wishlist Profile Icons -->
+        <div class="col-auto">
+          <!-- Cart -->
+          <button
+            type="button"
+            class="btn position-relative border-0"
+            onclick="handleCartPage()"
+            style="cursor: pointer"
+          >
+            <i
+              class="ms-2 ms-lg-3 bi bi-cart3 fs-3 nav-link"
+              data-bs-toggle="pill"
+              data-bs-target="#cartPage"
+              type="button"
+              role="tab"
+              aria-controls="cartPage"
+              aria-selected="true"
+            ></i>
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger mt-2"
+              id="cartListBadge"
+              >0
+            </span>
+          </button>
+          <!-- WishList -->
+          <button
+            type="button"
+            class="btn position-relative border-0"
+            onclick="handleWishPage()"
+            style="cursor: pointer"
+          >
+            <i
+              class="ms-2 ms-lg-3 bi bi-bag-heart-fill fs-3 nav-link"
+              data-bs-toggle="pill"
+              data-bs-target="#wishlistPage"
+              type="button"
+              role="tab"
+              aria-controls="wishlistPage"
+              aria-selected="true"
+            ></i>
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger mt-2"
+              id="wishListBadge"
+              >0
+            </span>
+          </button>
+          <!-- Profile -->
+          <button
+            type="button"
+            onclick="handleProfileDropDown()"
+            class="btn position-relative border-0"
+          >
+            <i class="ms-2 ms-lg-3 bi bi-person-circle fs-3 nav-link"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Profile Menu -->
+    <div
+      style="
+        z-index: 1050;
+        position: fixed;
+        top: 4rem;
+        right: 0.5rem;
+        width: 20em;
+      "
+      class="d-none"
+      id="profileDropDown"
+    >
+      <div class="container">
+        <!-- Welcome Message Section -->
+        <div class="row">
+          <div
+            class="col ms-0 me-0 ps-1 pe-1 mb-3 text-center fs-4"
+            id="profileName"
+          >
+            <i class="bi bi-flower1 text-warning"></i> Hi!
+          </div>
+        </div>
+        <!-- Profile and Logout Buttons -->
+        <div class="row">
+          <button
+            class="btn btn-primary col rounded-pill fs-6 h-25 me-2 ms-2 border-0"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModalCenter"
+            onclick="handleViewProfile()"
+          >
+            Profile
+          </button>
+          <button
+            class="btn btn-danger col rounded-pill fs-6 h-25 me-2 ms-2 border-0"
+            onclick="handleLogout()"
+          >
+            <div class="d-block d-lg-none">
+              <i class="bi bi-door-closed"></i>
+            </div>
+            <div class="d-none d-lg-block">Log Out</div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div
+      class="tab-content bg-body-tertiary mt-5 overflow-auto"
+      id="pills-tabContent"
+    >
+      <div class="row m-auto tab-pane fade show active" id="homePage"></div>
+      <div class="row m-auto tab-pane fade" id="cartPage"></div>
+      <div class="row m-auto tab-pane fade" id="wishlistPage"></div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div
+      class="modal fade"
+      id="exampleModalCenter"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header d-block bg-secondary-subtle">
+            <h2
+              class="modal-title d-flex justify-content-center fs-3 fw-bold"
+              id="exampleModalLongTitle"
+            >
+              Profile
+            </h2>
+          </div>
+          <div class="modal-body p-3">
+            <div style="letter-spacing: 0.5px" class="ms-5">
+              <div class="row h5">
+                <div class="col-3 offset-2">Name is</div>
+                <div class="col-1">:</div>
+                <div class="col-4" id="name"></div>
+              </div>
+              <div class="row h5">
+                <div class="col-3 offset-2">Username is</div>
+                <div class="col-1">:</div>
+                <div class="col-4" id="username"></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Index JS Script -->
+    <script src="./js/index.js"></script>
+    <!-- Bootstrap JS CDN -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
